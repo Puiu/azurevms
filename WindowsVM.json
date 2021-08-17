@@ -1,0 +1,84 @@
+{
+    "type": "Microsoft.VirtualMachineImages/imageTemplates",
+    "apiVersion": "2020-02-14",
+    "location": "<region>",
+    "dependsOn": [],
+    "tags": {
+        "imagebuilderTemplate": "windows2019",
+        "userIdentity": "enabled"
+            },
+        "identity": {
+            "type": "UserAssigned",
+                    "userAssignedIdentities": {
+                    "<imgBuilderId>": {}
+                        
+                }
+                },
+    "properties": {
+
+        "buildTimeoutInMinutes" : 100,
+
+        "vmProfile": 
+                {
+                "vmSize": "Standard_D2_v2",
+                "osDiskSizeGB": 127
+                },
+        
+        "source": {
+            "type": "PlatformImage",
+                "publisher": "MicrosoftWindowsServer",
+                "offer": "WindowsServer",
+                "sku": "2019-Datacenter",
+                "version": "latest"
+            
+        },
+        "customize": [
+            {
+                "type": "PowerShell",
+                "name": "CreateDownloadFolder",
+                "runElevated": false,
+                "inline": [
+                    "mkdir c:\\TempDownloads"
+                ]
+            },
+            {
+                "type": "File",
+                "name": "downloadRStudio",
+                "sourceUri": "https://download1.rstudio.org/desktop/windows/RStudio-1.4.1717.zip",
+                "destination":"c:\\TempDownloads\\RStudio.zip"
+            },
+
+            {
+                "type": "PowerShell",
+                "name": "installRStudio",
+                "runElevated": false,
+                "inline": [
+                    "cd c:\\TempDownloads",
+                    "mkdir RStudio",
+                    "Expand-Archive -Path RStudio.zip -DestinationPath C:\\TempDownloads\\RStudio"
+                ]
+            },
+            {
+                "type": "WindowsUpdate",
+                "searchCriteria": "IsInstalled=0",
+                "filters": [
+                    "exclude:$_.Title -like '*Preview*'",
+                    "include:$true"
+                            ],
+                "updateLimit": 20
+            }
+        ],
+        "distribute": 
+            [
+                {   "type":"ManagedImage",
+                    "imageId": "/subscriptions/<subscriptionID>/resourceGroups/<rgName>/providers/Microsoft.Compute/images/<imageName>",
+                    "location": "<region>",
+                    "runOutputName": "<runOutputName>",
+                    "artifactTags": {
+                        "source": "azVmImageBuilder",
+                        "baseosimg": "windows2019"
+                    }
+                }
+            ]
+        }
+}
