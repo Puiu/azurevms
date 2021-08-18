@@ -46,17 +46,6 @@
                 "name": "downloadRStudio",
                 "sourceUri": "https://download1.rstudio.org/desktop/windows/RStudio-1.4.1717.zip",
                 "destination":"c:\\TempDownloads\\RStudio.zip"
-            },
-
-            {
-                "type": "PowerShell",
-                "name": "installRStudio",
-                "runElevated": false,
-                "inline": [
-                    "cd c:\\TempDownloads",
-                    "mkdir RStudio",
-                    "Expand-Archive -Path RStudio.zip -DestinationPath C:\\TempDownloads\\RStudio"
-                ]
             }
         ],
         "distribute": 
