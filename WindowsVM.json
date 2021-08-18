@@ -36,7 +36,8 @@
             {
                 "type": "PowerShell",
                 "name": "CreateDownloadFolder",
-                "runElevated": false,
+                "runElevated": true,
+                "runAsSystem": true,
                 "inline": [
                     "mkdir c:\\TempDownloads"
                 ]
@@ -44,6 +45,7 @@
             {
                 "type": "File",
                 "runElevated": true,
+                "runAsSystem": true,
                 "name": "downloadRStudio",
                 "sourceUri": "https://download1.rstudio.org/desktop/windows/RStudio-1.4.1717.zip",
                 "destination":"c:\\TempDownloads\\RStudio.zip"
