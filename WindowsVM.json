@@ -49,6 +49,20 @@
             },
             {
                 "type": "PowerShell",
+                "name": "DownloadR",
+                "runElevated": true,
+                "runAsSystem": true,
+                "scriptUri": "https://raw.githubusercontent.com/Puiu/azurevms/main/downloadRWin.ps1"
+            },
+            {
+                "type": "PowerShell",
+                "name": "InstallR",
+                "runElevated": true,
+                "runAsSystem": true,
+                "scriptUri": "https://raw.githubusercontent.com/Puiu/azurevms/main/installR.ps1"
+            },
+            {
+                "type": "PowerShell",
                 "name": "InstallRStudio",
                 "runElevated": true,
                 "runAsSystem": true,
