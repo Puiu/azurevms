@@ -38,9 +38,21 @@
                 "name": "CreateDownloadFolder",
                 "runElevated": true,
                 "runAsSystem": true,
-                "inline": [
-                    "mkdir c:\\TempDownloads"
-                ]
+                "scriptUri": "https://raw.githubusercontent.com/Puiu/azurevms/main/createTempDownloadsFolder.ps1"
+            },
+            {
+                "type": "PowerShell",
+                "name": "DownloadRStudio",
+                "runElevated": true,
+                "runAsSystem": true,
+                "scriptUri": "https://raw.githubusercontent.com/Puiu/azurevms/main/downloadRStudio.ps1"
+            },
+            {
+                "type": "PowerShell",
+                "name": "InstallRStudio",
+                "runElevated": true,
+                "runAsSystem": true,
+                "scriptUri": "https://raw.githubusercontent.com/Puiu/azurevms/main/installRStudio.ps1"
             }
         ],
         "distribute": 
